@@ -15,27 +15,13 @@ public class ItemsAdderReloadCommand {
 
     public static LiteralCommandNode<CommandSourceStack> get() {
         return Commands.literal("reload")
-                .requires(css -> CommandUtils.defaultRequirements(css, "ia.admin.iareload"))
+                .requires(css -> CommandUtils.defaultRequirements(css, "ia.admin.iazip"))
                 .executes(ctx -> {
                     Entity executor = ctx.getSource().getExecutor();
-                    Bukkit.dispatchCommand(executor, "iareload");
+                    Bukkit.dispatchCommand(executor, "iazip");
 
                     return Command.SINGLE_SUCCESS;
                 })
-                .then(Commands.literal("scripts-only")
-                        .executes(ctx -> {
-                            Entity executor = ctx.getSource().getExecutor();
-                            Bukkit.dispatchCommand(executor, "iareload --scripts-only");
-
-                            return Command.SINGLE_SUCCESS;
-                        }))
-                .then(Commands.literal("skip-recipes")
-                        .executes(ctx -> {
-                            Entity executor = ctx.getSource().getExecutor();
-                            Bukkit.dispatchCommand(executor, "iareload --skip-recipes");
-
-                            return Command.SINGLE_SUCCESS;
-                        }))
                 .build();
     }
 }
