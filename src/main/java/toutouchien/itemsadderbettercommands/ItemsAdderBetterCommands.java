@@ -13,9 +13,7 @@ public final class ItemsAdderBetterCommands extends JavaPlugin {
     public void onEnable() {
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> {
             Commands registrar = commands.registrar();
-            Arrays.asList(
-                    ItemsAdderCommand.get()
-            ).forEach(registrar::register);
+            registrar.register(ItemsAdderCommand.get());
         });
     }
 

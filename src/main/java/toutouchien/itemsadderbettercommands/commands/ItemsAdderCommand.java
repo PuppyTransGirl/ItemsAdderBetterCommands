@@ -11,6 +11,7 @@ public class ItemsAdderCommand {
 
     public static LiteralCommandNode<CommandSourceStack> get() {
         return Commands.literal("itemsadder")
+                .then(ItemsAdderInfoCommand.get())
                 .build();
     }
 }

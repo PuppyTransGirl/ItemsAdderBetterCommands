@@ -1,4 +1,4 @@
-name: NiveriaAPI
+name: ItemsAdderBetterCommands
 version: '${version}'
 main: toutouchien.itemsadderbettercommands.ItemsAdderBetterCommands
 api-version: '${minecraftVersion}'
