@@ -13,6 +13,7 @@ public class ItemsAdderCommand {
         return Commands.literal("itemsadder")
                 .then(ItemsAdderDebugCommand.get())
                 .then(ItemsAdderDurabilityCommand.get())
+                .then(ItemsAdderGiveCommand.get())
                 .then(ItemsAdderInfoCommand.get())
                 .then(ItemsAdderReloadCommand.get())
                 .then(ItemsAdderRepairCommand.get())
