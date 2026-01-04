@@ -11,9 +11,9 @@ import dev.lone.itemsadder.api.ItemsAdder;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.command.brigadier.argument.ArgumentTypes;
-import io.papermc.paper.command.brigadier.argument.resolvers.FinePositionResolver;
+import io.papermc.paper.command.brigadier.argument.resolvers.BlockPositionResolver;
 import io.papermc.paper.command.brigadier.argument.resolvers.selector.PlayerSelectorArgumentResolver;
-import io.papermc.paper.math.FinePosition;
+import io.papermc.paper.math.BlockPosition;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -30,7 +30,7 @@ public class ItemsAdderDropCommand {
     public static LiteralCommandNode<CommandSourceStack> get() {
         return Commands.literal("drop")
                 .requires(css -> CommandUtils.defaultRequirements(css, "ia.admin.iadrop"))
-                .then(Commands.argument("position", ArgumentTypes.finePosition())
+                .then(Commands.argument("position", ArgumentTypes.blockPosition())
                         .then(Commands.argument("world", ArgumentTypes.world()).then(getAfter()))
                 )
                 .then(Commands.argument("player", ArgumentTypes.player()).then(getAfter()))
@@ -70,8 +70,8 @@ public class ItemsAdderDropCommand {
 
     private static Location locationFromContext(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
         try {
-            FinePositionResolver resolver = ctx.getArgument("position", FinePositionResolver.class);
-            FinePosition finePosition = resolver.resolve(ctx.getSource());
+            BlockPositionResolver resolver = ctx.getArgument("position", BlockPositionResolver.class);
+            BlockPosition finePosition = resolver.resolve(ctx.getSource());
 
             World world = ctx.getArgument("world", World.class);
             return finePosition.toLocation(world);
