@@ -5,8 +5,6 @@ import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import org.bukkit.plugin.java.JavaPlugin;
 import toutouchien.itemsadderbettercommands.commands.ItemsAdderCommand;
 
-import java.util.Arrays;
-
 public final class ItemsAdderBetterCommands extends JavaPlugin {
 
     @Override
