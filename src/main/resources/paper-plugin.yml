@@ -1,0 +1,12 @@
+name: NiveriaAPI
+version: '${version}'
+main: toutouchien.itemsadderbettercommands.ItemsAdderBetterCommands
+api-version: '${minecraftVersion}'
+load: STARTUP
+authors: [ Toutouchien ]
+
+dependencies:
+  server:
+    ItemsAdder:
+      load: BEFORE
+      required: false
