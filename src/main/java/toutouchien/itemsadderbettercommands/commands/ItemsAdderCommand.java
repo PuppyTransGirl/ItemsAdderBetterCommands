@@ -14,6 +14,7 @@ public class ItemsAdderCommand {
                 .then(ItemsAdderDebugCommand.get())
                 .then(ItemsAdderDurabilityCommand.get())
                 .then(ItemsAdderInfoCommand.get())
+                .then(ItemsAdderReloadCommand.get())
                 .then(ItemsAdderRepairCommand.get())
                 .build();
     }
