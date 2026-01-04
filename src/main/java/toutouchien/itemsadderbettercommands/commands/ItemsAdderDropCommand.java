@@ -1,0 +1,97 @@
+package toutouchien.itemsadderbettercommands.commands;
+
+import com.mojang.brigadier.Command;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.builder.RequiredArgumentBuilder;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.brigadier.tree.LiteralCommandNode;
+import dev.lone.itemsadder.api.CustomStack;
+import dev.lone.itemsadder.api.ItemsAdder;
+import io.papermc.paper.command.brigadier.CommandSourceStack;
+import io.papermc.paper.command.brigadier.Commands;
+import io.papermc.paper.command.brigadier.argument.ArgumentTypes;
+import io.papermc.paper.command.brigadier.argument.resolvers.FinePositionResolver;
+import io.papermc.paper.command.brigadier.argument.resolvers.selector.PlayerSelectorArgumentResolver;
+import io.papermc.paper.math.FinePosition;
+import net.kyori.adventure.key.Key;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+import toutouchien.itemsadderbettercommands.utils.CommandUtils;
+
+public class ItemsAdderDropCommand {
+    private ItemsAdderDropCommand() {
+        throw new IllegalStateException("Command class");
+    }
+
+    public static LiteralCommandNode<CommandSourceStack> get() {
+        return Commands.literal("drop")
+                .requires(css -> CommandUtils.defaultRequirements(css, "ia.admin.iadrop"))
+                .then(Commands.argument("position", ArgumentTypes.finePosition())
+                        .then(Commands.argument("world", ArgumentTypes.world()).then(getAfter()))
+                )
+                .then(Commands.argument("player", ArgumentTypes.player()).then(getAfter()))
+                .build();
+    }
+
+    private static RequiredArgumentBuilder<CommandSourceStack, Key> getAfter() {
+        return Commands.argument("item", ArgumentTypes.key())
+                .suggests((ctx, builder) -> {
+                    for (CustomStack stack : ItemsAdder.getAllItems()) {
+                        builder.suggest(stack.getNamespacedID());
+                    }
+
+                    return builder.buildFuture();
+                })
+                .executes(ctx -> {
+                    Player executor = (Player) ctx.getSource().getExecutor();
+
+                    Key itemIDAsKey = ctx.getArgument("item", Key.class);
+                    dropItem(executor, locationFromContext(ctx), itemIDAsKey, 1);
+
+                    return Command.SINGLE_SUCCESS;
+                })
+                .then(Commands.argument("amount", IntegerArgumentType.integer(1))
+                        .executes(ctx -> {
+                            Player executor = (Player) ctx.getSource().getExecutor();
+
+                            Key itemIDAsKey = ctx.getArgument("item", Key.class);
+                            int amount = IntegerArgumentType.getInteger(ctx, "amount");
+
+                            dropItem(executor, locationFromContext(ctx), itemIDAsKey, amount);
+
+                            return Command.SINGLE_SUCCESS;
+                        })
+                );
+    }
+
+    private static Location locationFromContext(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
+        try {
+            FinePositionResolver resolver = ctx.getArgument("position", FinePositionResolver.class);
+            FinePosition finePosition = resolver.resolve(ctx.getSource());
+
+            World world = ctx.getArgument("world", World.class);
+            return finePosition.toLocation(world);
+        } catch (IllegalArgumentException e) {
+            PlayerSelectorArgumentResolver targetResolver = ctx.getArgument("player", PlayerSelectorArgumentResolver.class);
+            Player target = targetResolver.resolve(ctx.getSource()).getFirst();
+            return target.getLocation();
+        }
+    }
+
+    private static void dropItem(Entity executor, Location location, Key itemIDAsKey, int amount) {
+        String itemID = itemIDAsKey.asString();
+
+        Bukkit.dispatchCommand(executor, "iadrop %s %s %s %s %s %s".formatted(
+                itemID,
+                location.getX(),
+                location.getY(),
+                location.getZ(),
+                location.getWorld().getName(),
+                amount
+        ));
+    }
+}
