@@ -8,7 +8,7 @@ val minecraftVersion: String by project
 val itemsAdderVersion: String by project
 
 group = "toutouchien.itemsadderbettercommands"
-version = "1.0.0"
+version = "1.0.1"
 
 repositories {
     mavenCentral()
