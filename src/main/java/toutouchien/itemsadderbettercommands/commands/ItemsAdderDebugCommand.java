@@ -14,6 +14,7 @@ public class ItemsAdderDebugCommand {
     public static LiteralCommandNode<CommandSourceStack> get() {
         return Commands.literal("debug")
                 .then(ItemsAdderDebugBlockCommand.get())
+                .then(ItemsAdderDebugCleanCacheCommand.get())
                 .then(ItemsAdderDebugCustomModelDataCommand.get())
                 .then(ItemsAdderDebugLiquidCommand.get())
                 .then(ItemsAdderDebugSha1Command.get())
