@@ -3,10 +3,7 @@ package toutouchien.itemsadderbettercommands.commands;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
-import toutouchien.itemsadderbettercommands.commands.debug.ItemsAdderDebugBlockCommand;
-import toutouchien.itemsadderbettercommands.commands.debug.ItemsAdderDebugCustomModelDataCommand;
-import toutouchien.itemsadderbettercommands.commands.debug.ItemsAdderDebugSha1Command;
-import toutouchien.itemsadderbettercommands.commands.debug.ItemsAdderDebugTagCommand;
+import toutouchien.itemsadderbettercommands.commands.debug.*;
 
 @SuppressWarnings("UnstableApiUsage")
 public class ItemsAdderDebugCommand {
@@ -18,6 +15,7 @@ public class ItemsAdderDebugCommand {
         return Commands.literal("debug")
                 .then(ItemsAdderDebugBlockCommand.get())
                 .then(ItemsAdderDebugCustomModelDataCommand.get())
+                .then(ItemsAdderDebugLiquidCommand.get())
                 .then(ItemsAdderDebugSha1Command.get())
                 .then(ItemsAdderDebugTagCommand.get())
                 .build();
