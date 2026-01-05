@@ -72,10 +72,10 @@ public class ItemsAdderDropCommand {
     private static Location locationFromContext(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
         try {
             BlockPositionResolver resolver = ctx.getArgument("position", BlockPositionResolver.class);
-            BlockPosition finePosition = resolver.resolve(ctx.getSource());
+            BlockPosition blockPosition = resolver.resolve(ctx.getSource());
 
             World world = ctx.getArgument("world", World.class);
-            return finePosition.toLocation(world);
+            return blockPosition.toLocation(world);
         } catch (IllegalArgumentException e) {
             PlayerSelectorArgumentResolver targetResolver = ctx.getArgument("player", PlayerSelectorArgumentResolver.class);
             Player target = targetResolver.resolve(ctx.getSource()).getFirst();
