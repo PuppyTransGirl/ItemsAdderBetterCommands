@@ -1,25 +1,25 @@
-package toutouchien.itemsadderbettercommands.commands;
+package toutouchien.itemsadderbettercommands.commands.basic;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 import toutouchien.itemsadderbettercommands.utils.CommandUtils;
 
 @SuppressWarnings("UnstableApiUsage")
-public class ItemsAdderReloadCommand {
-    private ItemsAdderReloadCommand() {
+public class ItemsAdderInventoryCommand {
+    private ItemsAdderInventoryCommand() {
         throw new IllegalStateException("Command class");
     }
 
     public static LiteralCommandNode<CommandSourceStack> get() {
-        return Commands.literal("reload")
-                .requires(css -> CommandUtils.defaultRequirements(css, "ia.admin.iazip"))
+        return Commands.literal("inventory")
+                .requires(css -> CommandUtils.defaultRequirements(css, "ia.user.ia", true))
                 .executes(ctx -> {
-                    CommandSender sender = CommandUtils.sender(ctx);
-                    Bukkit.dispatchCommand(sender, "iazip");
+                    Entity executor = ctx.getSource().getExecutor();
+                    Bukkit.dispatchCommand(executor, "ia");
 
                     return Command.SINGLE_SUCCESS;
                 })

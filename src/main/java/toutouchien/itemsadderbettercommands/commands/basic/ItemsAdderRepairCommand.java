@@ -1,25 +1,25 @@
-package toutouchien.itemsadderbettercommands.commands;
+package toutouchien.itemsadderbettercommands.commands.basic;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 import toutouchien.itemsadderbettercommands.utils.CommandUtils;
 
 @SuppressWarnings("UnstableApiUsage")
-public class ItemsAdderInfoCommand {
-    private ItemsAdderInfoCommand() {
+public class ItemsAdderRepairCommand {
+    private ItemsAdderRepairCommand() {
         throw new IllegalStateException("Command class");
     }
 
     public static LiteralCommandNode<CommandSourceStack> get() {
-        return Commands.literal("info")
-                .requires(css -> CommandUtils.defaultRequirements(css, "ia.admin.iainfo"))
+        return Commands.literal("repair")
+                .requires(css -> CommandUtils.defaultRequirements(css, "ia.admin.iarepair", true))
                 .executes(ctx -> {
-                    CommandSender sender = CommandUtils.sender(ctx);
-                    Bukkit.dispatchCommand(sender, "iainfo");
+                    Entity executor = ctx.getSource().getExecutor();
+                    Bukkit.dispatchCommand(executor, "iarepair");
 
                     return Command.SINGLE_SUCCESS;
                 })

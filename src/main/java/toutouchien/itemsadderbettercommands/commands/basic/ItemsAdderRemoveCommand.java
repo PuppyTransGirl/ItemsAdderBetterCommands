@@ -1,4 +1,4 @@
-package toutouchien.itemsadderbettercommands.commands;
+package toutouchien.itemsadderbettercommands.commands.basic;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
@@ -18,14 +18,14 @@ import toutouchien.itemsadderbettercommands.utils.CommandUtils;
 import java.util.List;
 
 @SuppressWarnings("UnstableApiUsage")
-public class ItemsAdderGiveCommand {
-    private ItemsAdderGiveCommand() {
+public class ItemsAdderRemoveCommand {
+    private ItemsAdderRemoveCommand() {
         throw new IllegalStateException("Command class");
     }
 
     public static LiteralCommandNode<CommandSourceStack> get() {
-        return Commands.literal("give")
-                .requires(css -> CommandUtils.defaultRequirements(css, "ia.admin.iagive"))
+        return Commands.literal("remove")
+                .requires(css -> CommandUtils.defaultRequirements(css, "ia.admin.iaremove"))
                 .then(Commands.argument("players", ArgumentTypes.players())
                         .then(Commands.argument("item", ArgumentTypes.key())
                                 .suggests((ctx, builder) -> {
@@ -42,7 +42,7 @@ public class ItemsAdderGiveCommand {
                                     List<Player> players = targetResolver.resolve(ctx.getSource());
                                     Key itemIDAsKey = ctx.getArgument("item", Key.class);
 
-                                    giveItem(sender, players, itemIDAsKey, 1, false);
+                                    removeItem(sender, players, itemIDAsKey, 1, false);
 
                                     return Command.SINGLE_SUCCESS;
                                 })
@@ -56,7 +56,7 @@ public class ItemsAdderGiveCommand {
                                                     Key itemIDAsKey = ctx.getArgument("item", Key.class);
                                                     int amount = IntegerArgumentType.getInteger(ctx, "amount");
 
-                                                    giveItem(sender, players, itemIDAsKey, amount, false);
+                                                    removeItem(sender, players, itemIDAsKey, amount, false);
 
                                                     return Command.SINGLE_SUCCESS;
                                                 })
@@ -69,7 +69,7 @@ public class ItemsAdderGiveCommand {
                                                             Key itemIDAsKey = ctx.getArgument("item", Key.class);
                                                             int amount = IntegerArgumentType.getInteger(ctx, "amount");
 
-                                                            giveItem(sender, players, itemIDAsKey, amount, true);
+                                                            removeItem(sender, players, itemIDAsKey, amount, true);
 
                                                             return Command.SINGLE_SUCCESS;
                                                         }))
@@ -77,17 +77,17 @@ public class ItemsAdderGiveCommand {
                 .build();
     }
 
-    private static void giveItem(CommandSender sender, List<Player> players, Key itemIDAsKey, int amount, boolean silent) {
+    private static void removeItem(CommandSender sender, List<Player> players, Key itemIDAsKey, int amount, boolean silent) {
         String itemID = itemIDAsKey.asString();
         CustomStack stack = CustomStack.getInstance(itemID);
 
         for (Player player : players) {
             if (stack == null) {
-                Bukkit.dispatchCommand(sender, "iagive %s %s".formatted(player.getName(), itemID));
+                Bukkit.dispatchCommand(sender, "iaremove %s %s".formatted(player.getName(), itemID));
                 return;
             }
 
-            Bukkit.dispatchCommand(sender, "iagive %s %s %d %s".formatted(
+            Bukkit.dispatchCommand(sender, "iaremove %s %s %d %s".formatted(
                     player.getName(),
                     itemID,
                     amount,

@@ -3,6 +3,7 @@ package toutouchien.itemsadderbettercommands.commands;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
+import toutouchien.itemsadderbettercommands.commands.basic.*;
 
 @SuppressWarnings("UnstableApiUsage")
 public class ItemsAdderCommand {

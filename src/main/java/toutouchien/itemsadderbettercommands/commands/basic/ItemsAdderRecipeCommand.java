@@ -1,4 +1,4 @@
-package toutouchien.itemsadderbettercommands.commands;
+package toutouchien.itemsadderbettercommands.commands.basic;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.tree.LiteralCommandNode;
