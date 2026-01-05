@@ -1,11 +1,13 @@
 plugins {
     id("io.papermc.paperweight.userdev") version "2.0.0-beta.19"
+    id("com.gradleup.shadow") version "9.3.0"
     id("xyz.jpenilla.run-paper") version "3.0.2"
     id("maven-publish")
 }
 
 val minecraftVersion: String by project
 val itemsAdderVersion: String by project
+val bStatsVersion: String by project
 
 group = "toutouchien.itemsadderbettercommands"
 version = "1.1.0"
@@ -22,6 +24,9 @@ dependencies {
 
     // Plugins
     compileOnly("dev.lone:api-itemsadder:${itemsAdderVersion}")
+
+    // Dependencies
+    implementation("org.bstats:bstats-bukkit:${bStatsVersion}")
 }
 
 paperweight {
@@ -65,6 +70,12 @@ tasks {
     register<Jar>("sourcesJar") {
         archiveClassifier.set("sources")
         from(sourceSets.main.get().allSource)
+    }
+
+    shadowJar {
+        archiveFileName.set("${project.name}-${project.version}.jar")
+
+        relocate("org.bstats", "toutouchien.itemsadderbettercommands.libs.org.bstats")
     }
 
     processResources {
