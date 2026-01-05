@@ -18,6 +18,7 @@ public class ItemsAdderCommand {
                 .then(ItemsAdderGiveCommand.get())
                 .then(ItemsAdderInfoCommand.get())
                 .then(ItemsAdderInventoryCommand.get())
+                .then(ItemsAdderRecipeCommand.get())
                 .then(ItemsAdderReloadCommand.get())
                 .then(ItemsAdderRemoveCommand.get())
                 .then(ItemsAdderRepairCommand.get())
