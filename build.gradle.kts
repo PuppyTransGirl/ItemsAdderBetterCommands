@@ -8,7 +8,7 @@ val minecraftVersion: String by project
 val itemsAdderVersion: String by project
 
 group = "toutouchien.itemsadderbettercommands"
-version = "1.0.1"
+version = "1.1.0"
 
 repositories {
     mavenCentral()
@@ -30,7 +30,7 @@ paperweight {
 
 tasks {
     runServer {
-        minecraftVersion(minecraftVersion)
+        minecraftVersion("1.21.10")
 
         jvmArgs(
                 "-Xmx4096M",
