@@ -4,6 +4,7 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 
+@SuppressWarnings("UnstableApiUsage")
 public class ItemsAdderCommand {
     private ItemsAdderCommand() {
         throw new IllegalStateException("Command class");
@@ -18,6 +19,7 @@ public class ItemsAdderCommand {
                 .then(ItemsAdderInfoCommand.get())
                 .then(ItemsAdderInventoryCommand.get())
                 .then(ItemsAdderReloadCommand.get())
+                .then(ItemsAdderRemoveCommand.get())
                 .then(ItemsAdderRepairCommand.get())
                 .build();
     }
