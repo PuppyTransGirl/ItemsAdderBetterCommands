@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import toutouchien.itemsadderbettercommands.utils.CommandUtils;
 
+@SuppressWarnings("UnstableApiUsage")
 public class ItemsAdderDurabilityCommand {
     private ItemsAdderDurabilityCommand() {
         throw new IllegalStateException("Command class");

@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import toutouchien.itemsadderbettercommands.utils.CommandUtils;
 
+@SuppressWarnings("UnstableApiUsage")
 public class ItemsAdderDebugSha1Command {
     private ItemsAdderDebugSha1Command() {
         throw new IllegalStateException("Command class");

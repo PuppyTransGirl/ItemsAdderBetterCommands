@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import toutouchien.itemsadderbettercommands.utils.CommandUtils;
 
+@SuppressWarnings("UnstableApiUsage")
 public class ItemsAdderInventoryCommand {
     private ItemsAdderInventoryCommand() {
         throw new IllegalStateException("Command class");

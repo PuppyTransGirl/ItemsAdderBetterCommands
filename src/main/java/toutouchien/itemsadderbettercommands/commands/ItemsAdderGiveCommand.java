@@ -17,6 +17,7 @@ import toutouchien.itemsadderbettercommands.utils.CommandUtils;
 
 import java.util.List;
 
+@SuppressWarnings("UnstableApiUsage")
 public class ItemsAdderGiveCommand {
     private ItemsAdderGiveCommand() {
         throw new IllegalStateException("Command class");

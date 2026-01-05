@@ -8,6 +8,7 @@ import toutouchien.itemsadderbettercommands.commands.debug.ItemsAdderDebugCustom
 import toutouchien.itemsadderbettercommands.commands.debug.ItemsAdderDebugSha1Command;
 import toutouchien.itemsadderbettercommands.commands.debug.ItemsAdderDebugTagCommand;
 
+@SuppressWarnings("UnstableApiUsage")
 public class ItemsAdderDebugCommand {
     private ItemsAdderDebugCommand() {
         throw new IllegalStateException("Command class");

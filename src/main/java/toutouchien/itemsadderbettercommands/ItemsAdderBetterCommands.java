@@ -5,6 +5,7 @@ import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import org.bukkit.plugin.java.JavaPlugin;
 import toutouchien.itemsadderbettercommands.commands.ItemsAdderCommand;
 
+@SuppressWarnings("UnstableApiUsage")
 public final class ItemsAdderBetterCommands extends JavaPlugin {
 
     @Override
@@ -13,10 +14,5 @@ public final class ItemsAdderBetterCommands extends JavaPlugin {
             Commands registrar = commands.registrar();
             registrar.register(ItemsAdderCommand.get());
         });
-    }
-
-    @Override
-    public void onDisable() {
-
     }
 }
