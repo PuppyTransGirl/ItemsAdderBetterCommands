@@ -15,7 +15,7 @@ public class ItemsAdderRepairCommand {
 
     public static LiteralCommandNode<CommandSourceStack> get() {
         return Commands.literal("repair")
-                .requires(css -> CommandUtils.defaultRequirements(css, "ia.admin.iarepair"))
+                .requires(css -> CommandUtils.defaultRequirements(css, "ia.admin.iarepair", true))
                 .executes(ctx -> {
                     Entity executor = ctx.getSource().getExecutor();
                     Bukkit.dispatchCommand(executor, "iarepair");

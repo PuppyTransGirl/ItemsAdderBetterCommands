@@ -15,7 +15,7 @@ public class ItemsAdderDebugTagCommand {
 
     public static LiteralCommandNode<CommandSourceStack> get() {
         return Commands.literal("tag")
-                .requires(css -> CommandUtils.defaultRequirements(css, "ia.admin.iatag"))
+                .requires(css -> CommandUtils.defaultRequirements(css, "ia.admin.iatag", true))
                 .executes(ctx -> {
                     Entity executor = ctx.getSource().getExecutor();
                     Bukkit.dispatchCommand(executor, "iatag");

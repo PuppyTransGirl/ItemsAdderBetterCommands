@@ -5,7 +5,7 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Entity;
+import org.bukkit.command.CommandSender;
 import toutouchien.itemsadderbettercommands.utils.CommandUtils;
 
 public class ItemsAdderInfoCommand {
@@ -17,8 +17,8 @@ public class ItemsAdderInfoCommand {
         return Commands.literal("info")
                 .requires(css -> CommandUtils.defaultRequirements(css, "ia.admin.iainfo"))
                 .executes(ctx -> {
-                    Entity executor = ctx.getSource().getExecutor();
-                    Bukkit.dispatchCommand(executor, "iainfo");
+                    CommandSender sender = CommandUtils.sender(ctx);
+                    Bukkit.dispatchCommand(sender, "iainfo");
 
                     return Command.SINGLE_SUCCESS;
                 })

@@ -18,7 +18,7 @@ import net.kyori.adventure.key.Key;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.entity.Entity;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import toutouchien.itemsadderbettercommands.utils.CommandUtils;
 
@@ -47,21 +47,21 @@ public class ItemsAdderDropCommand {
                     return builder.buildFuture();
                 })
                 .executes(ctx -> {
-                    Player executor = (Player) ctx.getSource().getExecutor();
+                    CommandSender sender = CommandUtils.sender(ctx);
 
                     Key itemIDAsKey = ctx.getArgument("item", Key.class);
-                    dropItem(executor, locationFromContext(ctx), itemIDAsKey, 1);
+                    dropItem(sender, locationFromContext(ctx), itemIDAsKey, 1);
 
                     return Command.SINGLE_SUCCESS;
                 })
                 .then(Commands.argument("amount", IntegerArgumentType.integer(1))
                         .executes(ctx -> {
-                            Player executor = (Player) ctx.getSource().getExecutor();
+                            CommandSender sender = CommandUtils.sender(ctx);
 
                             Key itemIDAsKey = ctx.getArgument("item", Key.class);
                             int amount = IntegerArgumentType.getInteger(ctx, "amount");
 
-                            dropItem(executor, locationFromContext(ctx), itemIDAsKey, amount);
+                            dropItem(sender, locationFromContext(ctx), itemIDAsKey, amount);
 
                             return Command.SINGLE_SUCCESS;
                         })
@@ -82,10 +82,10 @@ public class ItemsAdderDropCommand {
         }
     }
 
-    private static void dropItem(Entity executor, Location location, Key itemIDAsKey, int amount) {
+    private static void dropItem(CommandSender sender, Location location, Key itemIDAsKey, int amount) {
         String itemID = itemIDAsKey.asString();
 
-        Bukkit.dispatchCommand(executor, "iadrop %s %s %s %s %s %s".formatted(
+        Bukkit.dispatchCommand(sender, "iadrop %s %s %s %s %s %s".formatted(
                 itemID,
                 location.getX(),
                 location.getY(),

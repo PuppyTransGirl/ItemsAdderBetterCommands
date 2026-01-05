@@ -15,7 +15,7 @@ public class ItemsAdderInventoryCommand {
 
     public static LiteralCommandNode<CommandSourceStack> get() {
         return Commands.literal("inventory")
-                .requires(css -> CommandUtils.defaultRequirements(css, "ia.user.ia"))
+                .requires(css -> CommandUtils.defaultRequirements(css, "ia.user.ia", true))
                 .executes(ctx -> {
                     Entity executor = ctx.getSource().getExecutor();
                     Bukkit.dispatchCommand(executor, "ia");

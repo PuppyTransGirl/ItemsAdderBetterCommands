@@ -11,7 +11,7 @@ import io.papermc.paper.command.brigadier.argument.ArgumentTypes;
 import io.papermc.paper.command.brigadier.argument.resolvers.selector.PlayerSelectorArgumentResolver;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Entity;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import toutouchien.itemsadderbettercommands.utils.CommandUtils;
 
@@ -35,40 +35,40 @@ public class ItemsAdderGiveCommand {
                                     return builder.buildFuture();
                                 })
                                 .executes(ctx -> {
-                                    Player executor = (Player) ctx.getSource().getExecutor();
+                                    CommandSender sender = CommandUtils.sender(ctx);
 
                                     PlayerSelectorArgumentResolver targetResolver = ctx.getArgument("players", PlayerSelectorArgumentResolver.class);
                                     List<Player> players = targetResolver.resolve(ctx.getSource());
                                     Key itemIDAsKey = ctx.getArgument("item", Key.class);
 
-                                    giveItem(executor, players, itemIDAsKey, 1, false);
+                                    giveItem(sender, players, itemIDAsKey, 1, false);
 
                                     return Command.SINGLE_SUCCESS;
                                 })
                                 .then(
                                         Commands.argument("amount", IntegerArgumentType.integer(1))
                                                 .executes(ctx -> {
-                                                    Player executor = (Player) ctx.getSource().getExecutor();
+                                                    CommandSender sender = CommandUtils.sender(ctx);
 
                                                     PlayerSelectorArgumentResolver targetResolver = ctx.getArgument("players", PlayerSelectorArgumentResolver.class);
                                                     List<Player> players = targetResolver.resolve(ctx.getSource());
                                                     Key itemIDAsKey = ctx.getArgument("item", Key.class);
                                                     int amount = IntegerArgumentType.getInteger(ctx, "amount");
 
-                                                    giveItem(executor, players, itemIDAsKey, amount, false);
+                                                    giveItem(sender, players, itemIDAsKey, amount, false);
 
                                                     return Command.SINGLE_SUCCESS;
                                                 })
                                                 .then(Commands.literal("silent")
                                                         .executes(ctx -> {
-                                                            Player executor = (Player) ctx.getSource().getExecutor();
+                                                            CommandSender sender = CommandUtils.sender(ctx);
 
                                                             PlayerSelectorArgumentResolver targetResolver = ctx.getArgument("players", PlayerSelectorArgumentResolver.class);
                                                             List<Player> players = targetResolver.resolve(ctx.getSource());
                                                             Key itemIDAsKey = ctx.getArgument("item", Key.class);
                                                             int amount = IntegerArgumentType.getInteger(ctx, "amount");
 
-                                                            giveItem(executor, players, itemIDAsKey, amount, true);
+                                                            giveItem(sender, players, itemIDAsKey, amount, true);
 
                                                             return Command.SINGLE_SUCCESS;
                                                         }))
@@ -76,17 +76,17 @@ public class ItemsAdderGiveCommand {
                 .build();
     }
 
-    private static void giveItem(Entity executor, List<Player> players, Key itemIDAsKey, int amount, boolean silent) {
+    private static void giveItem(CommandSender sender, List<Player> players, Key itemIDAsKey, int amount, boolean silent) {
         String itemID = itemIDAsKey.asString();
         CustomStack stack = CustomStack.getInstance(itemID);
 
         for (Player player : players) {
             if (stack == null) {
-                Bukkit.dispatchCommand(executor, "iagive %s %s".formatted(player.getName(), itemID));
+                Bukkit.dispatchCommand(sender, "iagive %s %s".formatted(player.getName(), itemID));
                 return;
             }
 
-            Bukkit.dispatchCommand(executor, "iagive %s %s %d %s".formatted(
+            Bukkit.dispatchCommand(sender, "iagive %s %s %d %s".formatted(
                     player.getName(),
                     itemID,
                     amount,

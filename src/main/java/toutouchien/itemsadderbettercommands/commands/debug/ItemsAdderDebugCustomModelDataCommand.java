@@ -9,7 +9,7 @@ import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.command.brigadier.argument.ArgumentTypes;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Entity;
+import org.bukkit.command.CommandSender;
 import toutouchien.itemsadderbettercommands.utils.CommandUtils;
 
 public class ItemsAdderDebugCustomModelDataCommand {
@@ -29,10 +29,10 @@ public class ItemsAdderDebugCustomModelDataCommand {
                             return builder.buildFuture();
                         })
                         .executes(ctx -> {
-                            Entity executor = ctx.getSource().getExecutor();
+                            CommandSender sender = CommandUtils.sender(ctx);
                             Key itemKey = ctx.getArgument("item", Key.class);
 
-                            Bukkit.dispatchCommand(executor, "iacustommodeldata " + itemKey.asString());
+                            Bukkit.dispatchCommand(sender, "iacustommodeldata " + itemKey.asString());
 
                             return Command.SINGLE_SUCCESS;
                         }))

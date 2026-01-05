@@ -16,7 +16,7 @@ public class ItemsAdderDurabilityCommand {
 
     public static LiteralCommandNode<CommandSourceStack> get() {
         return Commands.literal("durability")
-                .requires(css -> CommandUtils.defaultRequirements(css, "ia.admin.iarepair"))
+                .requires(css -> CommandUtils.defaultRequirements(css, "ia.admin.iarepair", true))
                 .then(Commands.argument("amount", IntegerArgumentType.integer(1))
                         .executes(ctx -> {
                             Entity executor = ctx.getSource().getExecutor();
